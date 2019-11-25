@@ -9,13 +9,18 @@
         </div>
 
         <script type="text/javascript" src="main.min.js"></script>
-        <script>
+        <script type="module">
+            import { RefFrames } from './meshcat-plugin.js';
+
             var viewer = new MeshCat.Viewer(document.getElementById("meshcat-pane"));
+            const pl = new RefFrames(viewer);
+            viewer.registerPlugin(pl);
             try {
                 viewer.connect();
             } catch (e) {
                 console.info("Not connected to MeshCat websocket server: ", e);
             }
+
         </script>
 
 
