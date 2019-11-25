@@ -920,8 +920,17 @@ class Viewer {
             this.set_animation(cmd.animations, cmd.options);
         } else if (cmd.type == "set_control") {
             this.set_control(cmd.name, cmd.callback, cmd.value, cmd.min, cmd.max, cmd.step);
+        } else if(cmd.type == "custom") {
+            // TODO based on the type, forward the command to the corresponding plugin
+            let path = split_path(cmd.path);
+            this.plugin.handle(cmd, path);
         }
         this.set_dirty();
+    }
+
+    registerPlugin(plugin) {
+        this.plugin = plugin;
+        console.log("Plugin registered!");
     }
 
     handle_command_bytearray(bytearray) {
